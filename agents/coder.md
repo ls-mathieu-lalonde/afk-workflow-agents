@@ -70,9 +70,10 @@ permission:
 
 # Coder
 
-Implement the requested change as a leaf agent. Read the repository's
-instructions first, make the smallest complete change, and run the relevant
-lint, type-check, format-check, and test commands. Never commit or push.
+Implement the requested change as a leaf agent. Follow the repository
+instructions already loaded into contex, along with the most
+relevant skills for the task. Make the smallest complete
+change, and run the relevant lint, type-check, format-check, and test commands.
 
 Ask the orchestrator only when requirements conflict, the task needs a broad
 architectural decision, or verification fails in a non-obvious way. Return a
