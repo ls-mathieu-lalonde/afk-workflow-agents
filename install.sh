@@ -2,7 +2,7 @@
 set -eu
 
 force=false
-destination="${HOME}/.config/opencode/agents"
+destination="${HOME}/.opencode/agents"
 
 if [ "${1:-}" = "--help" ] || [ "${1:-}" = "-h" ]; then
   printf 'Usage: %s [--force] [destination]\n' "$0"

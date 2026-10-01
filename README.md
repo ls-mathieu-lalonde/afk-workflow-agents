@@ -17,7 +17,7 @@ AFK workflows: ordinary work uses `reviewer`; an explicit `deep review` uses
 ## Install in the local opencode config
 
 The included installer copies these agents into the global opencode agent
-directory (`~/.config/opencode/agents`) and refuses to overwrite existing
+directory (`~/.opencode/agents`) and refuses to overwrite existing
 files:
 
 ```sh
