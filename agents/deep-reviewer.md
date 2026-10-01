@@ -1,7 +1,7 @@
 ---
 description: Strong read-only reviewer for explicitly requested deep reviews.
 mode: all
-model: github-copilot/gpt-5.6-sol
+model: github-copilot/gpt-6.1-sol
 temperature: 0.1
 permission:
   edit: deny

@@ -1,7 +1,8 @@
 ---
 description: Expert read-only reviewer for normal AFK workflow reviews.
 mode: subagent
-model: github-copilot/gpt-5.6-terra
+model: github-copilot/gpt-6-luna
+variant: max
 temperature: 0.1
 permission:
   edit: deny
