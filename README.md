@@ -9,8 +9,7 @@ workflows. It contains only four agents:
 - `deep-reviewer` — performs the stronger review when the request explicitly
   says **deep review**.
 
-The orchestrator does not implement, review, or delegate documentation and
-research tasks itself. It delegates each piece of work to one of the three
+The orchestrator does not implement, it delegates each piece of work to one of the three
 specialists in this repository. This makes the review boundary predictable in
 AFK workflows: ordinary work uses `reviewer`; an explicit `deep review` uses
 `deep-reviewer` instead.
