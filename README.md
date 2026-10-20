@@ -55,6 +55,14 @@ Ask for a normal review and it delegates to `reviewer`. Use the exact phrase
 orchestrator selects one specialist per request and returns that specialist's
 result.
 
+Ideally, build this into your plans or tasks lists.  Example.
+
+[ ] Implement user verification logic
+[ ] Review changes and address findings
+...
+[ ] Implement user verification display
+[ ] Perform a `deep review` of the work so far and address findings
+
 ## Repository layout
 
 ```text
