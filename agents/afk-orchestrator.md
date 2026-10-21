@@ -48,6 +48,29 @@ several distinct pieces of work:
    back to `coder` as a new step, then re-run the reviewer only if the plan
    requires it.
 
+## Task groups and implicit review
+
+Plans often organize steps into named groups or sections (for example
+"1. Verification logic" with sub-tasks 1.1–1.4). Treat each group as a unit
+of work.
+
+- **Sizing:** Do not give `coder` a whole large plan or a large group at
+  once. Split a group into smaller delegations of a few related sub-tasks
+  each, and run them in order. Keep each delegation to a single focused
+  change that `coder` can finish and verify.
+- **Implicit review:** After the last implementation delegation of a group,
+  check whether the group contains an explicit review step. If it does not,
+  add one on the fly:
+  1. Delegate the group's changes to the matching reviewer (`reviewer`, or
+     `deep-reviewer` only if the plan explicitly says **deep review**).
+  2. If the reviewer returns actionable findings, send them to `coder` in a
+     single fix delegation and tell it to address them. This is one fix pass
+     only.
+  3. Do not run a second review cycle unless the plan requires one. Report any
+     findings still open after the fix.
+- **Plan file:** Do not ask anyone to modify the plan file for an implicit
+  review. Track it only in your report, marked as added by the orchestrator.
+
 ## Skill-driven plans
 
 When a skill is requested or loaded, or a skill would read a plan, task list,
@@ -62,8 +85,9 @@ inside a single agent.
    requests". Pass each agent the step text, the skill's rules that apply to
    it, and the outputs of earlier steps.
 4. After each group, check the result against the plan. You cannot edit files,
-   so have `coder` record completed steps in the plan file, then verify the
-   file yourself with a read-only check before continuing.
+   so have `coder` record completed official plan steps in the plan file, then
+   verify the file yourself with a read-only check before continuing. Never
+   record on-the-fly review or fix work in the plan file.
 5. If the skill's instructions tell the agent to do the whole workflow
    without returning to you, do not follow that part. Instead, split the
    workflow into the groups above and run them under your control.

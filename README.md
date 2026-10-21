@@ -64,6 +64,46 @@ Ideally, build this into your plans or tasks lists.  Example.
 [ ] Implement user verification display
 [ ] Perform a `deep review` of the work so far and address findings
 
+### Task groups
+
+Plans often organize steps into named groups with sub-tasks, such as
+"1. Verification logic" with 1.1–1.4. The orchestrator treats each group as a
+unit:
+
+- **Sizing:** large groups are split into small delegations of a few related
+  sub-tasks, run in order, so `coder` gets one focused change at a time.
+- **Implicit review:** if a group has no explicit review step after its
+  implementation, the orchestrator adds one on the fly. It uses `reviewer`, or
+  `deep-reviewer` only when the plan says **deep review**. If the review
+  returns actionable findings, the orchestrator sends them to `coder` in one
+  fix pass. It does not run a second review cycle unless the plan requires one,
+  and it reports any findings still open.
+- **Plan file:** the orchestrator never changes the plan file for an implicit
+  review. `coder` records only official plan steps, and the added review
+  appears only in the report.
+
+### Skills that follow a plan
+
+Skills such as `openspec-apply-change` read a tasks file and work through it
+on their own. When a skill is requested or would read a plan, the orchestrator
+takes control of the sequence instead of letting the skill run the whole
+workflow inside one agent. It loads the skill, extracts the open steps from the
+plan file in order, tags each with its agent, and delegates groups in sequence.
+After each group it checks the result, has `coder` record completed official
+steps in the plan file, and reports progress per step. A skill's own completion
+message does not count as plan completion.
+
+### Ending a session with a deep review
+
+The initial prompt can ask for a final **deep review** to close the session,
+for example:
+
+> Implement the tasks in `tasks.md`. When finished, end with a deep review of
+> all changes and address the findings.
+
+The orchestrator then runs `deep-reviewer` as the last step, after the
+implementation groups, and sends its findings to `coder` in one fix pass.
+
 ## Repository layout
 
 ```text
