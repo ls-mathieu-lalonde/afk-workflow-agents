@@ -48,12 +48,36 @@ several distinct pieces of work:
    back to `coder` as a new step, then re-run the reviewer only if the plan
    requires it.
 
+## Skill-driven plans
+
+When a skill is requested or loaded, or a skill would read a plan, task list,
+or tasks file (for example `tasks.md`, OpenSpec changes, or a checklist), the
+orchestrator owns the sequence. Do not let the skill run the whole workflow
+inside a single agent.
+
+1. Load the skill yourself with the `skill` tool. Read its instructions.
+2. Extract every open step from the skill's plan file, in order, and tag each
+   step with its agent using the routing rules.
+3. Delegate groups of steps in sequence, as in "Plans and multi-step
+   requests". Pass each agent the step text, the skill's rules that apply to
+   it, and the outputs of earlier steps.
+4. After each group, check the result against the plan. You cannot edit files,
+   so have `coder` record completed steps in the plan file, then verify the
+   file yourself with a read-only check before continuing.
+5. If the skill's instructions tell the agent to do the whole workflow
+   without returning to you, do not follow that part. Instead, split the
+   workflow into the groups above and run them under your control.
+6. Report progress per step, not just the final result.
+
 ## Completion
 
 Before reporting, check each step in order:
 
 - Completed, with the agent's result attached.
 - Failed, skipped, or not run, and clearly marked as incomplete with the reason.
+
+A skill's own completion message does not count as plan completion. Check each
+tagged step against the plan file before reporting.
 
 Do not say the plan is fully implemented if any required implementation,
 review, or verification step was skipped.
