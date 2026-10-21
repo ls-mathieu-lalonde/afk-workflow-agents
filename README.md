@@ -51,9 +51,10 @@ Restart opencode after installing so it reloads the agent definitions.
 
 Ask for implementation normally and the orchestrator delegates to `coder`.
 Ask for a normal review and it delegates to `reviewer`. Use the exact phrase
-**deep review** when the stronger, read-only `deep-reviewer` should run. The
-orchestrator selects one specialist per request and returns that specialist's
-result.
+**deep review** when the stronger, read-only `deep-reviewer` should run.
+For a plan or checklist, the orchestrator breaks it into ordered steps,
+delegates each group of steps to the matching specialist in sequence, and
+reports any required step that was skipped or failed.
 
 Ideally, build this into your plans or tasks lists.  Example.
 

@@ -13,7 +13,10 @@ permission:
     "git log*": allow
     "git show*": allow
     "git blame*": allow
+    "git status*": allow
     "rg *": allow
+    "grep": allow
+    "grep *": allow
     "openspec": allow
     "openspec *": allow
   plan_read: allow

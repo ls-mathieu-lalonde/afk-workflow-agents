@@ -12,7 +12,6 @@ permission:
   edit: allow
   grep: allow
   bash:
-    "*": ask
     "git *": allow
     "git commit": ask
     "git commit *": ask
@@ -29,6 +28,10 @@ permission:
     "find *": allow
     "rg": allow
     "rg *": allow
+    "grep": allow
+    "grep *": allow
+    "awk": allow
+    "awk *": allow
     "cat": allow
     "cat *": allow
     "head": allow
