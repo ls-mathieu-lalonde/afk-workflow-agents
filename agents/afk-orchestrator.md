@@ -1,7 +1,7 @@
 ---
 description: AFK workflow orchestrator that routes each request to exactly one specialist.
 mode: primary
-model: github-copilot/gpt-6-luna
+model: {{MODEL_AFK_ORCHESTRATOR}}
 permission:
   edit: deny
   write: deny

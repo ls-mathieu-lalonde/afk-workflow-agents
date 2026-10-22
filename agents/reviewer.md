@@ -1,7 +1,7 @@
 ---
 description: Expert read-only reviewer for normal AFK workflow reviews.
 mode: subagent
-model: github-copilot/gpt-6.1-sol
+model: {{MODEL_REVIEWER}}
 variant: default
 temperature: 0.1
 permission:

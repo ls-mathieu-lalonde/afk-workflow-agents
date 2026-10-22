@@ -16,13 +16,17 @@ AFK workflows: ordinary work uses `reviewer`; an explicit `deep review` uses
 
 ## Install in the local opencode config
 
-The included installer copies these agents into the global opencode agent
-directory (`~/.opencode/agents`) and refuses to overwrite existing
-files:
+The included installer renders these agents into the global opencode agent
+directory (`~/.opencode/agents`):
 
 ```sh
 ./install.sh
 ```
+
+Each agent's model comes from `models.env` and is shown as the default. Press
+Enter to keep it, or type another model ID. Files that already match the chosen
+model are left alone. Files that differ show a diff and ask before replacing
+them. Every line of output names the file and the model it was installed with.
 
 To install into another directory, pass its path:
 
@@ -30,11 +34,31 @@ To install into another directory, pass its path:
 ./install.sh /path/to/opencode/agents
 ```
 
-To replace an existing installation deliberately:
+For a non-interactive run (or when stdin is not a terminal), the installer uses
+the defaults and leaves differing files untouched. It exits non-zero if it
+skipped any.
 
 ```sh
-./install.sh --force
+./install.sh --yes
 ```
+
+To use a different defaults file, pass `--models FILE`.
+
+### Models
+
+`agents/*.md` contain `{{MODEL_*}}` placeholders instead of fixed model IDs.
+`models.env` holds the defaults, one variable per agent:
+
+| Agent               | Variable                    |
+| ------------------- | --------------------------- |
+| afk-orchestrator    | `MODEL_AFK_ORCHESTRATOR`    |
+| coder               | `MODEL_CODER`               |
+| reviewer            | `MODEL_REVIEWER`            |
+| deep-reviewer       | `MODEL_DEEP_REVIEWER`       |
+
+The installer always renders from these templates, so the repo files are not
+valid opencode agents until installed. The routing tests use the same path with
+`tests/models.cheap.env`.
 
 The installer does not change `opencode.json`. If you want the orchestrator to
 be your default primary agent, set this in your local config:
@@ -119,6 +143,7 @@ afk-workflow-agents/
 │   ├── coder.md
 │   ├── reviewer.md
 │   └── deep-reviewer.md
+├── models.env               # default model per agent
 ├── tests/                   # routing test harness, see tests/README.md
 ├── install.sh
 └── README.md

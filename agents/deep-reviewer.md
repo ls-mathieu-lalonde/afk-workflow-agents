@@ -1,7 +1,7 @@
 ---
 description: Strong read-only reviewer for explicitly requested deep reviews.
 mode: all
-model: github-copilot/claude-opus-5.5
+model: {{MODEL_DEEP_REVIEWER}}
 temperature: 0.1
 permission:
   edit: deny

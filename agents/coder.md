@@ -1,7 +1,7 @@
 ---
 description: Technical implementation specialist for AFK coding workflows.
 mode: subagent
-model: github-copilot/gpt-6-luna
+model: {{MODEL_CODER}}
 variant: high
 permission:
   "context7_*": deny

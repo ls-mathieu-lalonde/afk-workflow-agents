@@ -5,11 +5,12 @@
 #   tests/run-scenario.sh [--dry-run] [--list] <scenario>
 #
 #   --list      List available scenarios and exit.
-#   --dry-run   Build the work copy and install agents, but do not call opencode.
+#   --dry-run   Build the work copy and render the agents, but do not call opencode.
 #
 # Each run deep-copies tests/scenarios/<scenario>/project into
-# tests/work/<scenario>-<timestamp>/, initializes a git baseline there, installs
-# the agents from this working tree into the copy's .opencode/agents, and runs
+# tests/work/<scenario>-<timestamp>/, initializes a git baseline there, renders
+# the agents from this working tree into the copy's .opencode/agents using the
+# cheap models in tests/models.cheap.env, and runs
 # the orchestrator with the scenario's prompt.md. The original fixture is never
 # modified. tests/work/ is git-ignored and kept for inspection.
 set -euo pipefail
@@ -75,10 +76,10 @@ git add -A
 git -c user.name=afk-test -c user.email=afk-test@localhost \
   commit -q --allow-empty -m "scenario baseline: $scenario"
 
-# Install the agents from this working tree (not the global install) so the
-# test exercises the code under review.
-mkdir -p .opencode/agents
-cp "$repo_dir"/agents/*.md .opencode/agents/
+# Render the agents from this working tree (not the global install) with the
+# cheap test models, through the same install.sh path users run. The test
+# exercises the code under review and the substitution logic.
+"$repo_dir/install.sh" --yes --models "$tests_dir/models.cheap.env" "$work_dir/.opencode/agents"
 
 prompt=$(cat "$scenario_dir/prompt.md")
 log="$work_dir/run.log"

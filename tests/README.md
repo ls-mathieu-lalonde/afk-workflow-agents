@@ -35,9 +35,11 @@ Each run:
    `tests/work/<name>-<timestamp>/`.
 2. Initializes a git repo there and commits the baseline, so the final diff
    shows only what the agents changed.
-3. Copies the agents from this working tree into the copy's
-   `.opencode/agents/`. The test runs the code under review, not the globally
-   installed agents.
+3. Renders the agents from this working tree into the copy's
+   `.opencode/agents/` with `install.sh --yes --models tests/models.cheap.env`.
+   The test runs the code under review, not the globally installed agents, and
+   exercises the same substitution path users run. Every agent uses the cheap
+   test model.
 4. Runs `opencode run --standalone --agent afk-orchestrator --auto` with
    `prompt.md` from inside the copy. `--auto` approves permission prompts so the
    run does not block.
