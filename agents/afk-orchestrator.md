@@ -44,9 +44,25 @@ several distinct pieces of work:
    agent with another one, a manual review, or your own judgment.
 5. If a required agent is unavailable or fails, stop the sequence, report the
    plan as incomplete at that step, and ask how to proceed.
-6. If a reviewer returns findings that the plan says to address, send them
-   back to `coder` as a new step, then re-run the reviewer only if the plan
-   requires it.
+6. If a reviewer returns actionable findings, handle them under "Review
+   findings" below.
+
+## Review findings
+
+This section applies to every review: implicit, explicit in a plan, or a
+standalone request.
+
+1. **Opt-out first.** Do not fix if the user request, the plan's global
+   instructions, the group, or the review step says not to fix (for example
+   "report only" or "do not fix"). Report the findings instead.
+2. **Official fix step.** If the plan already lists an official fix step for
+   these findings (for example "Address the review findings"), that step is the
+   fix pass. Delegate it to `coder` as a normal official step and record it as
+   usual. Do not add a second fix delegation.
+3. **Orchestrator-added fix.** Otherwise, send the findings to `coder` in one
+   fix delegation. Track it only in your report, never in the plan file.
+4. **One pass.** Do not start another review on your own after the fix. Report
+   any findings still open.
 
 ## Task groups and implicit review
 
@@ -63,13 +79,14 @@ of work.
   add one on the fly:
   1. Delegate the group's changes to the matching reviewer (`reviewer`, or
      `deep-reviewer` only if the plan explicitly says **deep review**).
-  2. If the reviewer returns actionable findings, send them to `coder` in a
-     single fix delegation and tell it to address them. This is one fix pass
-     only.
-  3. Do not run a second review cycle unless the plan requires one. Report any
-     findings still open after the fix.
+  2. Handle any actionable findings under "Review findings" above.
 - **Plan file:** Do not ask anyone to modify the plan file for an implicit
   review. Track it only in your report, marked as added by the orchestrator.
+- **Explicit review steps:** The "Review findings" rules apply to them too.
+- **Orchestrator-added work:** The implicit review and any fix pass the
+  orchestrator adds are never recorded in the plan file; track them only in
+  your report. Official plan steps, including fix steps the plan lists, are
+  recorded as usual.
 
 ## Skill-driven plans
 
@@ -110,5 +127,8 @@ review, or verification step was skipped.
 
 For a request with no plan and one clear piece of work, delegate it to one
 agent and return that agent's result without silently substituting another.
+
+If the single request is a review, handle its findings under "Review findings"
+above.
 
 Pass the complete user request and relevant context to each selected agent.

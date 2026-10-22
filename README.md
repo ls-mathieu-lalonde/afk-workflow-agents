@@ -82,6 +82,12 @@ unit:
   review. `coder` records only official plan steps, and the added review
   appears only in the report.
 
+Explicit review steps in a plan get the same treatment. If a review returns
+actionable findings, the orchestrator sends them to `coder` in one fix pass,
+unless the review step, the plan, or the group says not to fix it (for example
+"report only" or "do not fix"). Fix passes the orchestrator adds are never
+recorded in the plan file; a fix step the plan lists is recorded as usual.
+
 ### Skills that follow a plan
 
 Skills such as `openspec-apply-change` read a tasks file and work through it
@@ -113,6 +119,12 @@ afk-workflow-agents/
 │   ├── coder.md
 │   ├── reviewer.md
 │   └── deep-reviewer.md
+├── tests/                   # routing test harness, see tests/README.md
 ├── install.sh
 └── README.md
 ```
+
+## Testing routing
+
+`tests/run-scenario.sh` runs the orchestrator against a disposable copy of a
+scenario project. See [tests/README.md](tests/README.md).
