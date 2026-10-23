@@ -25,8 +25,8 @@ directory (`~/.opencode/agents`):
 
 Each agent's model comes from `models.env` and is shown as the default. Press
 Enter to keep it, or type another model ID. Files that already match the chosen
-model are left alone. Files that differ show a diff and ask before replacing
-them. Every line of output names the file and the model it was installed with.
+model are left alone. Files that differ ask before replacing them. Every line of
+output names the file and the model it was installed with.
 
 To install into another directory, pass its path:
 

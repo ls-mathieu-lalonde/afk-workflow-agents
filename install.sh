@@ -142,7 +142,6 @@ for source in "$source_dir"/*.md; do
   elif cmp -s "$rendered" "$target"; then
     printf 'Unchanged %s (model: %s)\n' "$target" "$model"
   elif [ "$interactive" = true ]; then
-    diff -u "$target" "$rendered" || true
     if confirm "Replace $target?"; then
       cp "$rendered" "$target"
       printf 'Updated %s (model: %s)\n' "$target" "$model"
